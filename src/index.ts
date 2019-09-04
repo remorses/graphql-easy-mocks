@@ -22,7 +22,7 @@ export const main = () => {
             alias: 'm',
             description: '',
             type: 'string',
-            required: true
+            default: null
         })
         .help()
         .alias('help', 'h').argv
@@ -33,7 +33,7 @@ export const main = () => {
     )
     const schema = makeExecutableSchema({ typeDefs: schemaString })
     
-    const userMocks = require(process.cwd() + '/' + argv.mocks)
+    const userMocks = argv.mocks ? require(process.cwd() + '/' + argv.mocks) : {}
 
     const mocks = {
         Int: () => Math.round(faker.random.number(100)),
