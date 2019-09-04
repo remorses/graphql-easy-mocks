@@ -27,7 +27,7 @@ steps:
   #     tags: 
   #       - latest
   #       # [bump]
-  #       - 0.0.2
+  #       - 0.0.3
   #     password:
   #       from_secret: docker_password
   # - name: npm
