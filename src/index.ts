@@ -51,7 +51,7 @@ export const main = () => {
 const readDirFiles = (schemaPath) => {
     const fileNames = fs.readdirSync(schemaPath)
     return fileNames.map((name) => {
-        return fs.readFileSync(name, 'utf8')
+        return fs.readFileSync(schemaPath + name, 'utf8')
     })
 }
 
