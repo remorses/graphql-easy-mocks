@@ -27,14 +27,10 @@ export const main = () => {
         .help()
         .alias('help', 'h').argv
 
-    const schemaString = fs.readFileSync(
-        process.cwd() + '/' + argv.schema,
-        'utf8'
-    )
-    const schema = makeExecutableSchema({ typeDefs: schemaString })
-    
-    const userMocks = argv.mocks ? require(process.cwd() + '/' + argv.mocks) : {}
-
+    const schema = getSchema(process.cwd() + '/' + argv.schema)
+    const userMocks = argv.mocks
+        ? require(process.cwd() + '/' + argv.mocks)
+        : {}
     const mocks = {
         Int: () => Math.round(faker.random.number(100)),
         Float: () => faker.random.number(100) + 0.001,
@@ -50,4 +46,19 @@ export const main = () => {
     server.listen(argv.port).then(({ url }) => {
         console.log(`🚀  Server ready at ${url}`)
     })
+}
+
+const readDirFiles = (schemaPath) => {
+    const fileNames = fs.readdirSync(schemaPath)
+    return fileNames.map((name) => {
+        return fs.readFileSync(name, 'utf8')
+    })
+}
+
+const getSchema = (schemaPath) => {
+    const isDir = fs.lstatSync(schemaPath).isDirectory()
+    const typeDefs = isDir
+        ? readDirFiles(schemaPath)
+        : fs.readFileSync(schemaPath, 'utf8')
+    return makeExecutableSchema({ typeDefs })
 }
