@@ -54,6 +54,7 @@ export const main = async ({
     mocksPath
 }): Promise<ServerInfo> => {
     const schema = getSchema(schemaPath)
+    delete require.cache[require.resolve(mocksPath)];
     const userMocks = mocksPath ? require(mocksPath) : {}
     const mocks = {
         Int: () => Math.round(faker.random.number(100)),
