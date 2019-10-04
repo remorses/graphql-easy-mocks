@@ -1,7 +1,7 @@
 {
   "name": "graphql-easy-mocks",
   "_": "[bump]",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
