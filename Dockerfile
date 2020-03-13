@@ -12,7 +12,7 @@ COPY . /src/
 
 ENV PORT=80
 
-RUN tsc --incremental
+RUN yarn tsc --incremental
 
 ENTRYPOINT ["dumb-init", "--"]
 
