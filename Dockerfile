@@ -12,5 +12,8 @@ COPY . /src/
 
 ENV PORT=80
 
+RUN tsc --incremental
+
 ENTRYPOINT ["dumb-init", "--"]
-CMD yarn entrypoint
+
+CMD node dist/entrypoint.js
