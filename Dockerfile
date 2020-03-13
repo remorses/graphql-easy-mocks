@@ -10,7 +10,7 @@ RUN npm ci
 
 COPY . /src/
 
-ENV PORT=80 MOCKS_PATH=/mocks.js
+ENV PORT=80
 
 ENTRYPOINT ["dumb-init", "--"]
 CMD yarn entrypoint
