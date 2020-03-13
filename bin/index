@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const {default: main} = require('../dist/index.js')
+const {default: main} = require('../dist/bin.js')
 
 
 try {

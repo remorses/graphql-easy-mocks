@@ -10,25 +10,26 @@
     "/bin"
   ],
   "scripts": {
-    "test": "mocha --require ts-node/register --timeout 10000 tests/* --colors"
+    "test": "mocha --require ts-node/register --timeout 10000 tests/* --colors",
+    "entrypoint": "tsc --incremental && node dist/entrypoint.js"
   },
   "keywords": [],
   "author": "Tommaso De Rossi, morse <beats.by.morse@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.0.7",
-    "mocha": "^6.1.4",
-    "ts-node": "^8.2.0",
-    "typescript": "^3.5.1"
+    "@types/node": "^12.12.30",
+    "mocha": "^6.2.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
   },
   "bin": "./bin/index",
   "dependencies": {
-    "@types/faker": "^4.1.5",
-    "apollo-server": "^2.9.3",
-    "chokidar": "^3.2.1",
+    "@types/faker": "^4.1.10",
+    "apollo-server": "^2.11.0",
+    "chokidar": "^3.3.1",
     "faker": "^4.1.0",
-    "graphql-tools": "^4.0.5",
-    "yargs": "^14.0.0"
+    "graphql-tools": "^4.0.7",
+    "yargs": "^14.2.2"
   }
 }

@@ -1,5 +1,19 @@
 
-## Usage
+
+
+## Usage
+
+
+
+## Usage as cli
+
+## Install
+```
+npm install -g graphql-easy-mocks
+```
+
+## Then run
+
 `graphql-easy-mocks --port 9000 -f schema.graphql -m mocks.js`
 
 ```javascript

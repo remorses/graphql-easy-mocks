@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  mocker:
+    build: .
+    environment:
+      - URL=http://gqlapi:8080/
+  gqlapi:
+    image: rm3l/docker-api-graphql
+    expose: [8080]
+    environment:
+      - API_ENDPOINT=/
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
