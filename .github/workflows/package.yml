@@ -17,6 +17,12 @@ jobs:
       - run: tsc && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: mongoke/graphql-mocker
+          username: xmorse
+          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Bump version
         uses: remorses/bump-version@master
         with:

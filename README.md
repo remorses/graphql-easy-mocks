@@ -3,7 +3,22 @@
 
 ## Usage
 
+```
+version: "3"
 
+services:
+  mocker:
+    image: mongoke/graphql-mocker
+    ports:
+      - 7090:80
+    environment:
+      - PORT=80
+      - URL=http://gqlapi:8080/graphql
+  gqlapi:
+    ports:
+      - 7060:8080
+    build: your api
+```
 
 ## Usage as cli
 

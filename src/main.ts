@@ -21,7 +21,9 @@ export const main = async ({
     const schema = schemaPath
         ? await getSchemaFromPath(schemaPath)
         : await getSchemaFormUrl(url)
-    delete require.cache[require.resolve(mocksPath)]
+    if (mocksPath) {
+        delete require.cache[require.resolve(mocksPath)]
+    }
     const userMocks = mocksPath ? require(mocksPath) : {}
     const mocks = {
         Int: () => Math.round(faker.random.number(100)),
