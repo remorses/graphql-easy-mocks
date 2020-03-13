@@ -3,9 +3,14 @@ version: "3"
 services:
   mocker:
     build: .
+    ports:
+      - 7090:80
     environment:
-      - URL=http://gqlapi:8080/
+      - PORT=80
+      - URL=http://gqlapi:8080/graphql
   gqlapi:
+    ports:
+      - 7060:8080
     image: rm3l/docker-api-graphql
     expose: [8080]
     environment:

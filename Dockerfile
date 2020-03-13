@@ -13,4 +13,4 @@ COPY . /src/
 ENV PORT=80 MOCKS_PATH=/mocks.js
 
 ENTRYPOINT ["dumb-init", "--"]
-CMD "yarn entrypoint"
+CMD yarn entrypoint

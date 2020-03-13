@@ -2,11 +2,15 @@ import { ApolloServer, ServerInfo } from 'apollo-server'
 import { GraphQLSchema } from 'graphql'
 import faker from 'faker'
 import * as fs from 'fs'
+import { HttpLink } from 'apollo-link-http'
+import fetch from 'node-fetch'
+
 import {
     addMockFunctionsToSchema,
     makeExecutableSchema,
     introspectSchema,
 } from 'graphql-tools'
+import { waitForServices } from './support'
 
 export const main = async ({
     port,
@@ -50,7 +54,9 @@ const getSchemaFromPath = (schemaPath) => {
     return makeExecutableSchema({ typeDefs })
 }
 
-async function getSchemaFormUrl(url): Promise<GraphQLSchema> {
-    const schema = await introspectSchema(url)
+async function getSchemaFormUrl(uri): Promise<GraphQLSchema> {
+    await waitForServices([uri])
+    const link = new HttpLink({ uri, fetch })
+    const schema = await introspectSchema(link)
     return schema
 }

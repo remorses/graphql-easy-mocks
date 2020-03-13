@@ -9,8 +9,16 @@ if (!URL || !MOCKS_PATH || !PORT) {
     process.exit(1)
 }
 
-main({
-    port: PORT,
-    mocksPath: MOCKS_PATH,
-    url: URL,
-})
+async function go() {
+    try {
+        main({
+            port: PORT,
+            mocksPath: MOCKS_PATH,
+            url: URL,
+        })
+    } catch (e) {
+        console.error(e)
+    }
+}
+
+go()
