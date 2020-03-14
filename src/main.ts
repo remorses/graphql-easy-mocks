@@ -30,6 +30,7 @@ export const main = async ({
         Float: () => faker.random.number(100) + 0.001,
         String: () => faker.random.words(2),
         Json: () => ({ json: {} }),
+        ObjectId: () => '000000111111222222333333',
         Bool: faker.random.boolean,
         ...userMocks,
     }
