@@ -31,6 +31,7 @@ export const main = async ({
         String: () => faker.random.words(2),
         Json: () => ({ json: {} }),
         ObjectId: () => '000000111111222222333333',
+        // TODO maybe add Date, DateTime, Time, _Any
         Bool: faker.random.boolean,
         ...userMocks,
     }
