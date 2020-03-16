@@ -51,7 +51,9 @@ export const main = async ({
         // Mutation: original.getMutationType().resolveObject,
     }
     const originalResolvers = extractResolversFromSchema(original)
-    const Mutation = originalResolvers['Mutation'] || {}
+    const Mutation = queriesToPreseserve
+        ? originalResolvers['Mutation'] || {}
+        : {}
     const Query = originalResolvers['Query'] || {}
     const selectedQueries = Object.keys(Query)
         .filter((k) => queriesToPreseserve.includes(k))
