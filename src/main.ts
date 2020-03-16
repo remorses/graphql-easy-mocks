@@ -22,6 +22,7 @@ export const main = async ({
     url = '',
     mocksPath = '',
     preserveMutations,
+    queriesToPreseserve = [],
 }): Promise<ServerInfo> => {
     const schema = schemaPath
         ? await getSchemaFromPath(schemaPath)
@@ -34,8 +35,7 @@ export const main = async ({
         delete require.cache[require.resolve(mocksPath)]
     }
     const userMocks = mocksPath ? require(mocksPath) : {}
-    const originalResolvers = extractResolversFromSchema(original)
-    const Mutation = originalResolvers['Mutation']
+
     // console.log(originalResolvers['Mutation'])
     const mocks = {
         Int: () => Math.round(faker.random.number(100)),
@@ -50,12 +50,21 @@ export const main = async ({
 
         // Mutation: original.getMutationType().resolveObject,
     }
-
+    const originalResolvers = extractResolversFromSchema(original)
+    const Mutation = originalResolvers['Mutation'] || {}
+    const Query = originalResolvers['Query'] || {}
+    const selectedQueries = Object.keys(Query)
+        .filter((k) => queriesToPreseserve.includes(k))
+        .map((k) => ({ [k]: Query[k] }))
     addResolveFunctionsToSchema({
         schema,
         resolvers: {
-            ...(preserveMutations && Mutation ? { Mutation } : {}),
+            Mutation,
+            Query: {
+                ...Object.assign({}, ...selectedQueries),
+            },
         },
+        resolverValidationOptions: { requireResolversForResolveType: false },
     })
 
     addMockFunctionsToSchema({

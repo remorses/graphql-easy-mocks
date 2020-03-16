@@ -1,9 +1,10 @@
-version: "3"
+version: "3.7"
 
 services:
   dummy:
     image: alpine
     command: sleep 10000
+    init: true
   mocker:
     build: .
     command: sh -c 'yarn tsc && node dist/entrypoint.js'
@@ -14,11 +15,13 @@ services:
       - URL=https://swapi.graph.cool
       - MOCKS_PATH=/mocks.js
       - PRESERVE_MUTATIONS=1
+      - PRESERVE_QUERIES=allAssets
     volumes:
       - ./tests/mocks.js:/mocks.js
       - ./src:/src/src
 
 # examples
+
 # mutation {
 #   createStarship(name: "ccc") {
 #     class
@@ -30,4 +33,10 @@ services:
 #     fileName
 #     createdAt
 #   }
+#   allFilms {
+#     createdAt
+#     director
+#   }
 # }
+
+

@@ -12,7 +12,10 @@ services:
       - PORT=80
       - URL=http://gqlapi:8080/graphql
       - MOCKS_PATH=/mocks.js
-      - PRESERVE_MUTATIONS=1 # maintain mutations from original schema
+      - PRESERVE_MUTATIONS=1 
+      # maintain mutations from original schema
+      - PRESERVE_QUERIES=allAssets, queryName
+      # maintain certain queries
     volumes:
       - ./tests/mocks.js:/mocks.js
   gqlapi:

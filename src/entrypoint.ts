@@ -5,6 +5,7 @@ import path from 'path'
 const URL = process.env.URL
 const MOCKS_PATH = process.env.MOCKS_PATH
 const PRESERVE_MUTATIONS = process.env.PRESERVE_MUTATIONS
+const PRESERVE_QUERIES = process.env.PRESERVE_QUERIES || ''
 const PORT = Number(process.env.PORT || '80')
 
 if (!URL || !PORT) {
@@ -20,11 +21,15 @@ async function go() {
         await fs.promises.writeFile(DEFAULT_MOCKS_PATH, data)
     }
     try {
+        const queriesToPreseserve = PRESERVE_QUERIES.split(',')
+            .map((x) => x.trim())
+            .filter((x) => !!x)
         main({
             port: PORT,
             mocksPath: MOCKS_PATH && DEFAULT_MOCKS_PATH,
             url: URL,
-            preserveMutations: PRESERVE_MUTATIONS
+            preserveMutations: PRESERVE_MUTATIONS,
+            queriesToPreseserve,
         })
     } catch (e) {
         console.error(e)
