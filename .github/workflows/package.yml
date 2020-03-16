@@ -14,6 +14,13 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm test
+      - name: Bump version
+        id: bump
+        uses: remorses/bump-version@js
+        with:
+          version_file: VERSION
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: tsc && npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
@@ -23,16 +30,7 @@ jobs:
           name: mongoke/graphql-mocker
           username: xmorse
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: Bump version
-        uses: remorses/bump-version@master
-        with:
-          version_file: VERSION
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
-
-
+          tags: "latest,${{steps.bump.outputs.version}}"
   # publish-gpr:
   #   needs: build
   #   runs-on: ubuntu-latest
@@ -46,15 +44,3 @@ jobs:
   #     - run: npm publish
   #       env:
   #         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
