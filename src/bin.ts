@@ -30,7 +30,12 @@ export default async () => {
     const mocksPath = argv.mocks ? process.cwd() + '/' + argv.mocks : ''
     const watcher = chokidar.watch(schemaPath)
     if (mocksPath) watcher.add(mocksPath)
-    let { server } = await main({ mocksPath, schemaPath, port: argv.port })
+    let { server } = await main({
+        mocksPath,
+        schemaPath,
+        port: argv.port,
+        preserveMutations: false,
+    })
     watcher.on('ready', () => {
         watcher.on('all', async () => {
             server.close(async () => {
@@ -39,6 +44,7 @@ export default async () => {
                     mocksPath,
                     schemaPath,
                     port: argv.port,
+                    preserveMutations: false,
                 })
                 server = data.server
             })

@@ -4,6 +4,7 @@ import path from 'path'
 
 const URL = process.env.URL
 const MOCKS_PATH = process.env.MOCKS_PATH
+const PRESERVE_MUTATIONS = process.env.PRESERVE_MUTATIONS
 const PORT = Number(process.env.PORT || '80')
 
 if (!URL || !PORT) {
@@ -23,6 +24,7 @@ async function go() {
             port: PORT,
             mocksPath: MOCKS_PATH && DEFAULT_MOCKS_PATH,
             url: URL,
+            preserveMutations: PRESERVE_MUTATIONS
         })
     } catch (e) {
         console.error(e)
