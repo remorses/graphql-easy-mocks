@@ -51,7 +51,7 @@ export const main = async ({
         // Mutation: original.getMutationType().resolveObject,
     }
     const originalResolvers = extractResolversFromSchema(original)
-    const Mutation = queriesToPreseserve
+    const Mutation = preserveMutations
         ? originalResolvers['Mutation'] || {}
         : {}
     const Query = originalResolvers['Query'] || {}
@@ -77,14 +77,6 @@ export const main = async ({
     original.getMutationType()
     const server = new ApolloServer({
         schema,
-        // schema: mergeSchemas({
-        //     schemas: [schema, original],
-
-        //     onTypeConflict: (l, r, info) => {
-        //         console.log(info)
-        //         return r
-        //     },
-        // }),
     })
     return await server.listen(port).then((data) => {
         console.log(`🚀 Server ready at ${data.url}`)
